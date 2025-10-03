@@ -89,6 +89,7 @@ class LayoutBuilder {
     this.setupCanvasDrop();
     this.setupToolbar();
     this.setupModals();
+    this.setupPropertiesPanel();
     this.updateGridBackground(); // Set initial grid background
   }
 
@@ -334,7 +335,12 @@ class LayoutBuilder {
   createComponentElements(element, component) {
     const label = document.createElement("div");
     label.className = "component-label";
-    label.textContent = component.label;
+    // Show the name if provided, otherwise show the label, otherwise show default
+    const displayText =
+      component.name ||
+      component.label ||
+      component.getDefaultLabel(component.type);
+    label.textContent = displayText;
     element.appendChild(label);
 
     const removeBtn = document.createElement("button");
@@ -393,6 +399,9 @@ class LayoutBuilder {
     this.selectedComponent = id
       ? this.components.find((c) => c.id === id)
       : null;
+
+    // Update properties panel
+    this.updatePropertiesPanel();
   }
 
   removeComponent(id) {
@@ -465,6 +474,11 @@ class LayoutBuilder {
       this.selectComponent(id);
       this.startMove(id, e.clientX, e.clientY);
     } else {
+      // Don't deselect if clicking in properties panel
+      if (e.target.closest("#properties-panel")) {
+        return;
+      }
+
       this.selectComponent(null);
     }
   }
@@ -851,6 +865,214 @@ class LayoutBuilder {
   updateGridBackground() {
     const canvas = document.getElementById("canvas");
     canvas.style.setProperty("--grid-size", `${this.gridSize}px`);
+  }
+
+  updateComponentLabel(component) {
+    const element = document.querySelector(
+      `[data-id="${component.id}"] .component-label`
+    );
+    if (element) {
+      // Show the name if provided, otherwise show the label, otherwise show default
+      const displayText =
+        component.name ||
+        component.label ||
+        component.getDefaultLabel(component.type);
+      element.textContent = displayText;
+    }
+  }
+
+  setupPropertiesPanel() {
+    // Properties panel is set up in HTML, just need to initialize
+    this.updatePropertiesPanel();
+  }
+
+  updatePropertiesPanel() {
+    const propertiesContent = document.getElementById("properties-content");
+
+    if (!this.selectedComponent) {
+      propertiesContent.innerHTML =
+        "<p>Select a component to edit its properties</p>";
+      return;
+    }
+
+    const component = this.selectedComponent;
+    let html = `<h4>${
+      component.type.charAt(0).toUpperCase() + component.type.slice(1)
+    } Properties</h4>`;
+
+    // Common properties for all components
+    html += `
+      <div class="property-group">
+        <label for="component-name">Name:</label>
+        <input type="text" id="component-name" value="${
+          component.name || ""
+        }" placeholder="Enter component name">
+      </div>
+      <div class="property-group">
+        <label for="component-label">Label:</label>
+        <input type="text" id="component-label" value="${
+          component.label || ""
+        }" placeholder="Enter display label">
+      </div>
+    `;
+
+    // Type-specific properties
+    if (component.type === "text" || component.type === "textarea") {
+      html += `
+        <div class="property-group">
+          <label for="component-placeholder">Placeholder:</label>
+          <input type="text" id="component-placeholder" value="${
+            component.placeholder || ""
+          }" placeholder="Enter placeholder text">
+        </div>
+        <div class="property-group">
+          <label for="component-default">Default Value:</label>
+          <input type="text" id="component-default" value="${
+            component.defaultValue || ""
+          }" placeholder="Enter default value">
+        </div>
+      `;
+    }
+
+    if (component.type === "picklist") {
+      html += `
+        <div class="property-group">
+          <label for="component-options">Options (one per line):</label>
+          <textarea id="component-options" placeholder="Option 1&#10;Option 2&#10;Option 3">${(
+            component.options || []
+          ).join("\n")}</textarea>
+        </div>
+        <div class="property-group">
+          <label for="component-default">Default Selection:</label>
+          <input type="text" id="component-default" value="${
+            component.defaultValue || ""
+          }" placeholder="Enter default selection">
+        </div>
+      `;
+    }
+
+    if (component.type === "checkbox") {
+      html += `
+        <div class="property-group">
+          <label for="component-checked">Default Checked:</label>
+          <select id="component-checked">
+            <option value="false" ${
+              !component.checked ? "selected" : ""
+            }>No</option>
+            <option value="true" ${
+              component.checked ? "selected" : ""
+            }>Yes</option>
+          </select>
+        </div>
+      `;
+    }
+
+    if (component.type === "section") {
+      html += `
+        <div class="property-group">
+          <label for="section-title">Section Title:</label>
+          <input type="text" id="section-title" value="${
+            component.title || ""
+          }" placeholder="Enter section title">
+        </div>
+        <div class="property-group">
+          <label for="section-description">Description:</label>
+          <textarea id="section-description" placeholder="Enter section description">${
+            component.description || ""
+          }</textarea>
+        </div>
+      `;
+    }
+
+    propertiesContent.innerHTML = html;
+
+    // Add event listeners for property changes
+    this.setupPropertyListeners();
+  }
+
+  setupPropertyListeners() {
+    const component = this.selectedComponent;
+    if (!component) return;
+
+    // Name change
+    const nameInput = document.getElementById("component-name");
+    if (nameInput) {
+      nameInput.addEventListener("input", (e) => {
+        component.name = e.target.value;
+        // Update the visual label to show the name
+        this.updateComponentLabel(component);
+      });
+    }
+
+    // Label change
+    const labelInput = document.getElementById("component-label");
+    if (labelInput) {
+      labelInput.addEventListener("input", (e) => {
+        component.label = e.target.value;
+        // Update the visual label on the component
+        this.updateComponentLabel(component);
+      });
+    }
+
+    // Type-specific listeners
+    if (component.type === "text" || component.type === "textarea") {
+      const placeholderInput = document.getElementById("component-placeholder");
+      if (placeholderInput) {
+        placeholderInput.addEventListener("input", (e) => {
+          component.placeholder = e.target.value;
+        });
+      }
+
+      const defaultValueInput = document.getElementById("component-default");
+      if (defaultValueInput) {
+        defaultValueInput.addEventListener("input", (e) => {
+          component.defaultValue = e.target.value;
+        });
+      }
+    }
+
+    if (component.type === "picklist") {
+      const optionsInput = document.getElementById("component-options");
+      if (optionsInput) {
+        optionsInput.addEventListener("input", (e) => {
+          component.options = e.target.value
+            .split("\n")
+            .filter((option) => option.trim());
+        });
+      }
+
+      const defaultValueInput = document.getElementById("component-default");
+      if (defaultValueInput) {
+        defaultValueInput.addEventListener("input", (e) => {
+          component.defaultValue = e.target.value;
+        });
+      }
+    }
+
+    if (component.type === "checkbox") {
+      const checkedInput = document.getElementById("component-checked");
+      if (checkedInput) {
+        checkedInput.addEventListener("change", (e) => {
+          component.checked = e.target.value === "true";
+        });
+      }
+    }
+
+    if (component.type === "section") {
+      const titleInput = document.getElementById("section-title");
+      if (titleInput) {
+        titleInput.addEventListener("input", (e) => {
+          component.title = e.target.value;
+        });
+      }
+
+      const descriptionInput = document.getElementById("section-description");
+      if (descriptionInput) {
+        descriptionInput.addEventListener("input", (e) => {
+          component.description = e.target.value;
+        });
+      }
+    }
   }
 
   hasOverlap(component, excludeId) {

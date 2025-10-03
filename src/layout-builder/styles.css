@@ -238,6 +238,66 @@ body {
     color: #6b7280;
 }
 
+/* Properties Panel */
+.properties-panel {
+    width: 300px;
+    background: white;
+    border-left: 1px solid #e5e7eb;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+.properties-panel h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.properties-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.property-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.property-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.property-group input,
+.property-group textarea,
+.property-group select {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #374151;
+    background: white;
+    transition: border-color 0.2s;
+}
+
+.property-group input:focus,
+.property-group textarea:focus,
+.property-group select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.property-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
 /* Canvas Container */
 .canvas-container {
     flex: 1;
