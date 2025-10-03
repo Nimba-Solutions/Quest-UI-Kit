@@ -1,7 +1,6 @@
 # CCI
 .cci
 /src.orig
-/src
 
 # Python
 *.pyc

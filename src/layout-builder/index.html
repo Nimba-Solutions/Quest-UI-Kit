@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag-and-Drop Layout Builder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="toolbar-left">
+                <button id="save-layout" class="btn btn-primary">Save Layout</button>
+                <button id="clear-all" class="btn btn-secondary">Clear All</button>
+                <button id="view-json" class="btn btn-secondary">View JSON</button>
+            </div>
+            <div class="toolbar-right">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="allow-overlap" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">Allow Overlap</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Component Palette -->
+            <div class="palette" id="palette">
+                <h3>Components</h3>
+                <div class="palette-items">
+                    <div class="palette-item" draggable="true" data-type="text">
+                        <div class="palette-icon">📝</div>
+                        <div class="palette-info">
+                            <div class="palette-name">Text Field</div>
+                            <div class="palette-desc">Single line input</div>
+                        </div>
+                    </div>
+
+                    <div class="palette-item" draggable="true" data-type="textarea">
+                        <div class="palette-icon">📄</div>
+                        <div class="palette-info">
+                            <div class="palette-name">Text Area</div>
+                            <div class="palette-desc">Multi-line input</div>
+                        </div>
+                    </div>
+
+                    <div class="palette-item" draggable="true" data-type="picklist">
+                        <div class="palette-icon">📋</div>
+                        <div class="palette-info">
+                            <div class="palette-name">Picklist</div>
+                            <div class="palette-desc">Dropdown selection</div>
+                        </div>
+                    </div>
+
+                    <div class="palette-item" draggable="true" data-type="checkbox">
+                        <div class="palette-icon">☑️</div>
+                        <div class="palette-info">
+                            <div class="palette-name">Checkbox</div>
+                            <div class="palette-desc">Boolean field</div>
+                        </div>
+                    </div>
+
+                    <div class="palette-item" draggable="true" data-type="section">
+                        <div class="palette-icon">📦</div>
+                        <div class="palette-info">
+                            <div class="palette-name">Section</div>
+                            <div class="palette-desc">Container/grouping</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas Area -->
+            <div class="canvas-container">
+                <div class="canvas" id="canvas">
+                    <!-- Components will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- JSON Modal -->
+        <div class="modal" id="json-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Layout JSON</h3>
+                    <button class="modal-close" id="close-json">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <pre id="json-content"></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div class="modal" id="confirm-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Confirm Action</h3>
+                </div>
+                <div class="modal-body">
+                    <p id="confirm-message">Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="confirm-cancel">Cancel</button>
+                    <button class="btn btn-primary" id="confirm-ok">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
