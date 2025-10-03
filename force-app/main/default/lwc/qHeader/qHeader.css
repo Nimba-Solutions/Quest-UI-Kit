@@ -1,0 +1,13 @@
+.slds-page-header {
+    background-color: #f8f9fa;
+    border: 1px solid #d8dde6;
+    border-radius: 0.25rem;
+    margin: 1rem 0;
+    padding: 1rem;
+}
+
+.slds-page-header__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #16325c;
+}

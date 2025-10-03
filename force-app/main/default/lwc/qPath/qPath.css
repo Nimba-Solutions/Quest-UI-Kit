@@ -1,0 +1,23 @@
+.slds-path {
+    background-color: #f3f3f3;
+    border-radius: 0.25rem;
+    padding: 1rem;
+}
+
+.slds-path__step {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.slds-path__step:hover {
+    background-color: #e5f3ff;
+}
+
+.slds-path__step.slds-is-current {
+    background-color: #0176d3;
+    color: white;
+}
+
+.slds-path__step.slds-is-current .slds-path__step_title {
+    color: white;
+}

@@ -1,0 +1,32 @@
+<template>
+    <div class="slds-path">
+        <div class="slds-grid slds-path__track">
+            <div class="slds-grid slds-path__scroller-container">
+                <div class="slds-path__scroller">
+                    <div class="slds-path__scroller_inner">
+                        <div class="slds-path__track">
+                            <div class="slds-path__step slds-path__step_complete slds-is-complete {step1Class}"
+                                data-step="step1" onclick={handleStepClick}>
+                                <div class="slds-path__step_label">
+                                    <span class="slds-path__step_title">Step 1</span>
+                                </div>
+                            </div>
+                            <div class="slds-path__step slds-path__step_complete slds-is-complete {step2Class}"
+                                data-step="step2" onclick={handleStepClick}>
+                                <div class="slds-path__step_label">
+                                    <span class="slds-path__step_title">Step 2</span>
+                                </div>
+                            </div>
+                            <div class="slds-path__step slds-path__step_complete slds-is-complete {step3Class}"
+                                data-step="step3" onclick={handleStepClick}>
+                                <div class="slds-path__step_label">
+                                    <span class="slds-path__step_title">Step 3</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

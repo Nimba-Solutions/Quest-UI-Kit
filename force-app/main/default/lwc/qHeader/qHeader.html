@@ -1,0 +1,32 @@
+<template>
+    <template if:true={shouldShow}>
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-utility-info">
+                                <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                                    <use
+                                        xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#info">
+                                    </use>
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title={headerContent}>
+                                            {headerContent}
+                                        </span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>
