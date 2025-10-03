@@ -9,7 +9,9 @@ export default class QHeader extends qSubscriber(LightningElement) {
   connectedCallback() {
     super.connectedCallback();
     console.log("qHeader connectedCallback - assignedStep:", this.assignedStep);
-    this.subscribeToChannel(QUEST_PATH_STEP, (message) => this.handleMessage(message));
+    this.subscribeToChannel(QUEST_PATH_STEP, (message) =>
+      this.handleMessage(message)
+    );
   }
 
   handleMessage(message) {
