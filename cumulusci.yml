@@ -1,0 +1,28 @@
+minimum_cumulusci_version: '3.78.0'
+project:
+    name: Quest-UI-Kit
+    package:
+        name: Quest-UI-Kit
+        api_version: '64.0'
+    git:
+        default_branch: 'main'
+        prefix_feature: 'feature/'
+        prefix_beta: 'beta/'
+        prefix_release: 'release/'
+    source_format: sfdx
+
+tasks:
+    robot:
+        options:
+            suites: robot/Quest-UI-Kit/tests
+            options:
+                outputdir: robot/Quest-UI-Kit/results
+
+    robot_testdoc:
+        options:
+            path: robot/Quest-UI-Kit/tests
+            output: robot/Quest-UI-Kit/doc/Quest-UI-Kit_tests.html
+
+    run_tests:
+        options:
+            required_org_code_coverage_percent: 75
