@@ -12,5 +12,14 @@
         <targetConfig targets="lightning__FlowScreen">
             <property name="assignedStep" type="String" default="step1" label="Assigned Step" description="The step this header should display for"/>
         </targetConfig>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="assignedStep" type="String" default="step1" label="Assigned Step" description="The step this header should display for"/>
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage">
+            <property name="assignedStep" type="String" default="step1" label="Assigned Step" description="The step this header should display for"/>
+        </targetConfig>
+        <targetConfig targets="lightning__HomePage">
+            <property name="assignedStep" type="String" default="step1" label="Assigned Step" description="The step this header should display for"/>
+        </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

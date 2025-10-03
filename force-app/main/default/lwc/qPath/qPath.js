@@ -14,7 +14,17 @@ export default class QPath extends LightningElement {
   }
 
   handleStepClick(event) {
-    const step = event.target.dataset.step;
+    console.log("qPath handleStepClick - event.target:", event.target);
+    console.log(
+      "qPath handleStepClick - event.currentTarget:",
+      event.currentTarget
+    );
+    console.log(
+      "qPath handleStepClick - dataset:",
+      event.currentTarget.dataset
+    );
+    const step = event.currentTarget.dataset.step;
+    console.log("qPath handleStepClick - step:", step);
     this.currentStep = step;
     this.publishStepChange(step);
   }
