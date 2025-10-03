@@ -1,53 +1,15 @@
-import { LightningElement, api, track, wire } from "lwc";
-import {
-  subscribe,
-  MessageContext,
-  unsubscribe,
-} from "lightning/messageService";
+import { LightningElement, api, track } from "lwc";
+import qSubscriber from "c/qSubscriber";
 import QUEST_PATH_STEP from "@salesforce/messageChannel/qPathStep__c";
 
-export default class QHeader extends LightningElement {
+export default class QHeader extends qSubscriber(LightningElement) {
   @api assignedStep = "step1"; // Default to step1
   @track currentStep;
-  subscription = null;
-
-  @wire(MessageContext)
-  messageContext;
 
   connectedCallback() {
+    super.connectedCallback();
     console.log("qHeader connectedCallback - assignedStep:", this.assignedStep);
-    this.subscribeToMessageChannel();
-  }
-
-  renderedCallback() {
-    // Retry subscription if messageContext becomes available
-    if (this.messageContext && !this.subscription) {
-      this.subscribeToMessageChannel();
-    }
-  }
-
-  disconnectedCallback() {
-    this.unsubscribeFromMessageChannel();
-  }
-
-  subscribeToMessageChannel() {
-    if (!this.subscription && this.messageContext) {
-      console.log("qHeader subscribing to message channel");
-      this.subscription = subscribe(
-        this.messageContext,
-        QUEST_PATH_STEP,
-        (message) => this.handleMessage(message)
-      );
-    } else if (!this.messageContext) {
-      console.log("qHeader messageContext not available yet");
-    }
-  }
-
-  unsubscribeFromMessageChannel() {
-    if (this.subscription) {
-      unsubscribe(this.subscription);
-      this.subscription = null;
-    }
+    this.subscribeToChannel(QUEST_PATH_STEP, (message) => this.handleMessage(message));
   }
 
   handleMessage(message) {

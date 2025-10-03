@@ -1,14 +1,12 @@
-import { LightningElement, wire } from "lwc";
-import { publish, MessageContext } from "lightning/messageService";
+import { LightningElement } from "lwc";
+import qPublisher from "c/qPublisher";
 import QUEST_PATH_STEP from "@salesforce/messageChannel/qPathStep__c";
 
-export default class QPath extends LightningElement {
+export default class QPath extends qPublisher(LightningElement) {
   currentStep = "step1";
 
-  @wire(MessageContext)
-  messageContext;
-
   connectedCallback() {
+    super.connectedCallback();
     // Set step1 as initially selected
     this.publishStepChange("step1");
   }
@@ -34,7 +32,7 @@ export default class QPath extends LightningElement {
       currentStep: step,
     };
     console.log("qPath publishing message:", JSON.stringify(message));
-    publish(this.messageContext, QUEST_PATH_STEP, message);
+    this.publishMessage(QUEST_PATH_STEP, message);
   }
 
   get isStep1Selected() {
