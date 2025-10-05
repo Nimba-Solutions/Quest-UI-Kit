@@ -1,0 +1,30 @@
+<template>
+    <div class={containerClass}>
+        <!-- Main Order Lookup Section -->
+        <div class="q-order-lookup__main">
+            <h2 class="q-order-lookup__title">{title}</h2>
+            <p class="q-order-lookup__instruction">{instructionText}</p>
+
+            <div class="q-order-lookup__form">
+                <input type="text" class="q-order-lookup__input" placeholder={placeholder} value={orderNumber}
+                    onchange={handleOrderNumberChange} />
+
+                <button class="q-order-lookup__button {hasOrderNumber}" onclick={handleFindTests}
+                    disabled={isButtonDisabled}>
+                    {buttonText}
+                </button>
+            </div>
+        </div>
+
+        <!-- Support Section -->
+        <div class="q-order-lookup__support">
+            <h3 class="q-order-lookup__support-title">{supportTitle}</h3>
+            <p class="q-order-lookup__support-text">
+                {supportText}
+            </p>
+            <a href={supportLinkUrl} class="q-order-lookup__support-link" onclick={handleSupportClick}>
+                {supportLinkText}
+            </a>
+        </div>
+    </div>
+</template>

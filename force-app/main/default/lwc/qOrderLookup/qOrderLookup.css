@@ -1,0 +1,130 @@
+.q-order-lookup {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.q-order-lookup__main {
+    margin-bottom: 2rem;
+}
+
+.q-order-lookup__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0 0 0.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #28a745;
+}
+
+.q-order-lookup__instruction {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0 0 1.5rem 0;
+}
+
+.q-order-lookup__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.q-order-lookup__input {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    background: white;
+    transition: border-color 0.2s ease;
+}
+
+.q-order-lookup__input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+
+.q-order-lookup__input::placeholder {
+    color: #999;
+}
+
+.q-order-lookup__button {
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    align-self: flex-start;
+}
+
+.q-order-lookup__button:hover {
+    background: #218838;
+}
+
+.q-order-lookup__button:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+}
+
+.q-order-lookup__button.true {
+    background: #28a745;
+    cursor: pointer;
+}
+
+.q-order-lookup__support {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+    margin-top: 1rem;
+}
+
+.q-order-lookup__support-title {
+    color: #28a745;
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin: 0 0 0.75rem 0;
+}
+
+.q-order-lookup__support-text {
+    color: #333;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+}
+
+.q-order-lookup__support-link {
+    color: #28a745;
+    text-decoration: underline;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.q-order-lookup__support-link:hover {
+    color: #218838;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .q-order-lookup__form {
+        flex-direction: row;
+        align-items: flex-end;
+    }
+    
+    .q-order-lookup__input {
+        flex: 1;
+        margin-right: 1rem;
+    }
+    
+    .q-order-lookup__button {
+        flex-shrink: 0;
+    }
+}
