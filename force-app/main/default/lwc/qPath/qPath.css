@@ -1,23 +1,96 @@
 .slds-path {
-    background-color: #f3f3f3;
     border-radius: 0.25rem;
     padding: 1rem;
+    background-color: white;
+}
+
+.slds-path__track {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
 .slds-path__step {
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 1rem 0;
     transition: all 0.2s ease;
 }
 
-.slds-path__step:hover {
-    background-color: #e5f3ff;
+.slds-path__step--clickable {
+    cursor: pointer;
 }
 
-.slds-path__step.slds-is-current {
-    background-color: #0176d3;
-    color: white;
+.slds-path__step--disabled {
+    cursor: default;
+    opacity: 0.7;
+}
+
+.slds-path__step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    top: 3rem;
+    width: 2px;
+    height: calc(100% - 1rem);
+    background-color: #e0e0e0;
+    z-index: 1;
+}
+
+.slds-path__step.slds-is-current:not(:last-child)::after {
+    background-color: var(--qpath-current-color, #28a745);
+}
+
+.slds-path__step_number {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.875rem;
+    margin-right: 1rem;
+    border: 2px solid #e0e0e0;
+    background-color: white;
+    color: #999;
+    z-index: 2;
+    position: relative;
+}
+
+.slds-path__step.slds-is-current .slds-path__step_number {
+    border-color: var(--qpath-current-color, #28a745);
+    background-color: white;
+    color: var(--qpath-current-color, #28a745);
+}
+
+.slds-path__step_label {
+    flex: 1;
+}
+
+.slds-path__step_title {
+    font-size: 1rem;
+    color: #999;
+    font-weight: normal;
 }
 
 .slds-path__step.slds-is-current .slds-path__step_title {
-    color: white;
+    color: #333;
+    font-weight: bold;
+}
+
+.slds-path__step:hover {
+    /* Hover color is now customizable via CSS custom properties */
+    background-color: var(--qpath-hover-color, #f8f9fa);
+}
+
+.slds-path__step.slds-is-current {
+    /* Current step color is now customizable via CSS custom properties */
+    background-color: transparent;
+    color: inherit;
+}
+
+.slds-path__step--disabled:hover {
+    background-color: transparent;
 }
